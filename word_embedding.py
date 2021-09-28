@@ -17,7 +17,6 @@ class WordEmbbeding:
     self.w2vFitting()
     self.featureEngineering()
     self.getMatOfEmb()
-    self.attention_layer()
     self.genModel()
     self.trainData()
     # self.getMetric()
@@ -47,13 +46,13 @@ class WordEmbbeding:
       lst_grams = [" ".join(lst_words[i:i+1]) for i in range(0, len(lst_words), 1)]
       self.lst_corpus.append(lst_grams)
 
-    self.bigrams_detector = gensim.models.phrases.Phrases(self.lst_corpus, delimiter=" ".encode(), min_count=5, threshold=10)
+    self.bigrams_detector = gensim.models.phrases.Phrases(self.lst_corpus, min_count=5, threshold=10)
     self.bigrams_detector = gensim.models.phrases.Phraser(self.bigrams_detector)
-    self.trigrams_detector = gensim.models.phrases.Phrases(self.bigrams_detector[self.lst_corpus], delimiter=" ".encode(), min_count=5, threshold=10)
+    self.trigrams_detector = gensim.models.phrases.Phrases(self.bigrams_detector[self.lst_corpus], min_count=5, threshold=10)
     self.trigrams_detector = gensim.models.phrases.Phraser(self.trigrams_detector)
   
   def w2vFitting(self):
-    self.nlp = gensim.models.word2vec.Word2Vec(self.lst_corpus, size=300, window=8, min_count=1, sg=1, iter=30)
+    self.nlp = gensim.models.word2vec.Word2Vec(self.lst_corpus, vector_size=300, window=8, min_count=1, sg=1)
 
   def featureEngineering(self):
     # get x_train
@@ -95,7 +94,7 @@ class WordEmbbeding:
   
   def genModel(self):
     x_in = layers.Input(shape=(15,))
-    x = layers.Embedding(input_dim=self.embeddings.shape[0], moutput_dim=self.embeddings.shape[1], mweights=[self.embeddings], minput_length=15, trainable=False)(x_in)
+    x = layers.Embedding(input_dim=self.embeddings.shape[0], output_dim=self.embeddings.shape[1], weights=[self.embeddings], input_length=15, trainable=False)(x_in)
     x = self.attention_layer(x, neurons=15)
     x = layers.Bidirectional(layers.LSTM(units=15, dropout=0.2, return_sequences=True))(x)
     x = layers.Bidirectional(layers.LSTM(units=15, dropout=0.2))(x)

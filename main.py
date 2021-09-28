@@ -17,4 +17,4 @@ from word_embedding import *
 preprocessTrain = pd.read_csv('df_train_preprocessed.csv')
 preprocessTest = pd.read_csv('df_test_preprocessed.csv')
 shallow = Shallow(preprocessTrain, preprocessTest)
-wordEmbbeding = WordEmbbeding(preprocessTrain, preprocessTest)
+# wordEmbbeding = WordEmbbeding(preprocessTrain, preprocessTest)
