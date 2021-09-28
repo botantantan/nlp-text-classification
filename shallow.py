@@ -13,7 +13,7 @@ class Shallow:
         self.selectFeature()
         self.updateVectorizer()
         self.trainData()
-        self.getMetrics()
+        # self.getMetrics()
 
     def addCleanText(self):
         text_clean = []
