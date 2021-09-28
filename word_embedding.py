@@ -17,10 +17,6 @@ class WordEmbbeding:
     self.w2vFitting()
     self.featureEngineering()
     self.getMatOfEmb()
-<<<<<<< HEAD
-    # self.attention_layer()
-=======
->>>>>>> 4b6a184ec107bf5ad1926e081d863da6cce45f2f
     self.genModel()
     self.trainData()
     # self.getMetric()
@@ -49,12 +45,6 @@ class WordEmbbeding:
       lst_words = string.split()
       lst_grams = [" ".join(lst_words[i:i+1]) for i in range(0, len(lst_words), 1)]
       self.lst_corpus.append(lst_grams)
-<<<<<<< HEAD
-    
-    delimiterVar = " ".encode(encoding='utf8')
-=======
-
->>>>>>> 4b6a184ec107bf5ad1926e081d863da6cce45f2f
     self.bigrams_detector = gensim.models.phrases.Phrases(self.lst_corpus, min_count=5, threshold=10)
     self.bigrams_detector = gensim.models.phrases.Phraser(self.bigrams_detector)
     self.trigrams_detector = gensim.models.phrases.Phrases(self.bigrams_detector[self.lst_corpus], min_count=5, threshold=10)
