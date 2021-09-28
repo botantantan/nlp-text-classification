@@ -21,20 +21,26 @@ nltk.download('wordnet')
 nltk.download('stopwords')
 
 class Preprocess:
-    def __init__(self, data, textLabel, targetLabel):
+    def __init__(self, data, textLabel, targetLabel, dataType):
         self.data = data
         self.preprocessedText = data
         self.textLabel = textLabel
         self.targetLabel = targetLabel
+        self.dataType = dataType
         
         self.encodeLabel
         self.tokenizeWord()
         self.tokenizeWord()
         self.removeStopword()
         # self.lemmatize()
-        # stemming()
+        self.stemming()
 
         self.preprocessedText = self.data
+
+        if(self.dataType == 'train'):
+            self.preprocessedText.to_csv('df_train_preprocessed.csv',index=False)
+        elif(self.dataType == 'test'):
+            self.preprocessedText.to_csv('df_test_preprocessed.csv',index=False)
 
     def encodeLabel(self):
         le = preprocessing.LabelEncoder()
@@ -62,8 +68,12 @@ class Preprocess:
         stemmer = factory.create_stemmer()
 
         stemmedToken = []
+        lineCount = 0
 
         for list_tokens in self.data['tokenWithoutStopwords']:
+            if(lineCount % 100 == 0):
+                print(lineCount)
+            lineCount += 1
             temp = []
             for tokens in list_tokens:
                 temp.append(stemmer.stem(tokens))
