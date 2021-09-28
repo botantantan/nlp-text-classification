@@ -46,7 +46,7 @@ class Preprocess:
         le = preprocessing.LabelEncoder()
 
         self.data[self.targetLabel] = le.fit_transform(self.data[self.targetLabel]) #Mengganti data alphabet menjadi numerikal
-        self.data = self.data.drop(df_train.columns[0], axis=1)
+        self.data = self.data.drop(self.data.columns[0], axis=1)
 
     def tokenizeWord(self):
         wordTokens = []

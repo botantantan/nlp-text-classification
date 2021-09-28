@@ -1,9 +1,11 @@
+from word_embedding import WordEmbbeding
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from preprocess import *
 from shallow import *
+from word_embedding import *
 
 # df_train = pd.read_csv('./data/train.csv')
 # df_test = pd.read_csv('./data/test.csv')
@@ -15,3 +17,4 @@ from shallow import *
 preprocessTrain = pd.read_csv('df_train_preprocessed.csv')
 preprocessTest = pd.read_csv('df_test_preprocessed.csv')
 shallow = Shallow(preprocessTrain, preprocessTest)
+wordEmbbeding = WordEmbbeding(preprocessTrain, preprocessTest)
